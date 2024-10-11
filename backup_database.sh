@@ -5,13 +5,13 @@ source .env
 
 # Variables
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
-BACKUP_DIR="./backup"
+BACKUP_DIR="${LOCAL_BACKUP_DIR}"
 BACKUP_FILENAME="supabase_backup_${TIMESTAMP}.sql"
 COMPRESSED_FILENAME="${BACKUP_FILENAME}.gz"
 ENCRYPTED_FILENAME="${COMPRESSED_FILENAME}.enc"
 GDRIVE_REMOTE="gdrive"
 GDRIVE_FOLDER="supabase_backups"
-LOG_FILE="./path/backup/backup.log"
+LOG_FILE="${LOCAL_BACKUP_DIR}/backup.log"
 
 # Function for logging
 log() {
@@ -40,13 +40,13 @@ log "Encrypting backup"
 openssl enc -aes-256-cbc -salt -in "$BACKUP_DIR/$COMPRESSED_FILENAME" -out "$BACKUP_DIR/$ENCRYPTED_FILENAME" -k "$ENCRYPTION_KEY"
 
 # Upload to Google Drive
-log "Uploading to Google Drive"
-if rclone copy "$BACKUP_DIR/$ENCRYPTED_FILENAME" "$GDRIVE_REMOTE:$GDRIVE_FOLDER/"; then
-    log "Upload to Google Drive successful"
-else
-    log "Error: Google Drive upload failed"
-    exit 1
-fi
+#log "Uploading to Google Drive"
+#if rclone copy "$BACKUP_DIR/$ENCRYPTED_FILENAME" "$GDRIVE_REMOTE:$GDRIVE_FOLDER/"; then
+#   log "Upload to Google Drive successful"
+#else
+#    log "Error: Google Drive upload failed"
+#    exit 1
+#fi
 
 # Clean up local files
 log "Cleaning up local files"
