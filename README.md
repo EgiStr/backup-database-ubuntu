@@ -24,12 +24,15 @@ nano .env
 3. Make the script executable:
 ```bash
 chmod +x backup_supabase.sh
+chmod +x local_restore_database.sh
+
 ```
 4. Set up a cron job to run the backup script regularly:
 ```bash
 crontab -e
 # Add the following line to run the backup daily at 2 AM
 0 2 * * * /path/to/backup_supabase.sh
+0 2 * * * /path/to/local_restore_database.sh
 ```
 
 Usage
