@@ -39,4 +39,6 @@ Usage
 To run a backup manually:
 ```bash
 ./backup_supabase.sh
+# or
+./local_restore_database.sh
 ```
